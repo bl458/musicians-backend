@@ -8,12 +8,12 @@ import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class UserPianoService {
-  constructor(private authService: AuthService, private conn: DBConnService) {}
+  constructor(private auth: AuthService, private conn: DBConnService) {}
 
   //Create new piano user, stores to db
   async createNew(pUserDto: CreatePianoUserDto): Promise<void> {
     await this.conn.getConn().transaction(async mgr => {
-      pUserDto.pw = await this.authService.hashPw(pUserDto.pw);
+      pUserDto.pw = await this.auth.hashPw(pUserDto.pw);
       const pUser = plainToClass(PianoUser, pUserDto);
 
       try {
