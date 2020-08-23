@@ -14,7 +14,7 @@ export class CreatePianoUserDto {
 
   @IsNotEmpty()
   @Length(8, 25)
-  readonly pw: string;
+  pw: string;
 
   @IsNotEmpty()
   @MaxLength(35)

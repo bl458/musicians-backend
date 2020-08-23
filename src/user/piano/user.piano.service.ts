@@ -13,6 +13,7 @@ export class UserPianoService {
   //Create new piano user, stores to db
   async createNew(pUserDto: CreatePianoUserDto): Promise<void> {
     await this.conn.getConn().transaction(async mgr => {
+      pUserDto.pw = await this.authService.hashPw(pUserDto.pw);
       const pUser = plainToClass(PianoUser, pUserDto);
 
       try {
