@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { randomBytes } from 'crypto';
-import {hash} from 'bcrypt'
+import { randomBytes, createHash } from 'crypto';
+import { hash, compare } from 'bcrypt';
 
 const HASH_ROUNDS = 10;
 const TOKEN_BYTES = 256;
@@ -11,19 +11,33 @@ export class AuthService {
   generate(): Promise<string> {
     return new Promise((resolve, reject) =>
       randomBytes(TOKEN_BYTES, (err, buff) => {
-        if (err) reject(err)
-        return resolve(buff.toString('hex'));
+        err ? reject(err) : resolve(buff.toString('hex'));
       }),
     );
   }
 
   //Hash rawPw
-  hashPw(rawPw: string): Promise<String> {
-    return new Promise((resolve,reject) => )
+  hashPw(rawPw: string): Promise<string> {
+    return new Promise((resolve, reject) =>
+      hash(
+        createHash('sha256')
+          .update(rawPw)
+          .digest('base64'),
+        HASH_ROUNDS,
+        (err, encrypted) => {
+          err ? reject(err) : resolve(encrypted);
+        },
+      ),
+    );
   }
 
   //Compare inputted pw and hashedPw in db for authentication
-  compare(inputPw: string, hashedPw: string): Promise<Boolean> {
-    return;
+  comparePw(inputPw: string, hashedPw: string): Promise<boolean> {
+    return compare(
+      createHash('sha256')
+        .update(inputPw)
+        .digest('base64'),
+      hashedPw,
+    );
   }
 }
