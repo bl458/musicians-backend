@@ -4,6 +4,7 @@ import {
   IsOptional,
   MaxLength,
   Length,
+  IsDate,
 } from 'class-validator';
 
 export class CreatePianoUserDto {
@@ -27,4 +28,8 @@ export class CreatePianoUserDto {
   @IsNotEmpty()
   @MaxLength(35)
   readonly lastName: string;
+
+  @IsNotEmpty()
+  @IsDate()
+  readonly createdAt: Date;
 }

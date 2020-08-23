@@ -1,4 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class PianoUser {
@@ -16,4 +21,7 @@ export class PianoUser {
 
   @Column()
   lastName: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
 }
