@@ -14,7 +14,7 @@ export class UserPianoService {
     await this.conn.getConn().transaction(async mgr => {
       const pUser = new PianoUser();
       pUser.email = pUserDto.email;
-      pUser.pw = pUserDto.pw;
+      pUser.pw = await this.authService.hashPw(pUserDto.pw);
       pUser.firstName = pUserDto.firstName;
       pUser.middleName = pUserDto.middleName;
       pUser.lastName = pUserDto.lastName;
