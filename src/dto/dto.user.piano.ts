@@ -28,8 +28,4 @@ export class CreatePianoUserDto {
   @IsNotEmpty()
   @MaxLength(35)
   readonly lastName: string;
-
-  @IsNotEmpty()
-  @IsDate()
-  readonly createdAt: Date;
 }
