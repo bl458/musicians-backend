@@ -8,7 +8,7 @@ import { UserPianoService } from './user.piano.service';
 export class UserPianoController {
   constructor(private pUserService: UserPianoService) {}
 
-  @Post('/pu')
+  @Post('/puser')
   async newPUser(@Body() pUserDto: CreatePianoUserDto): Promise<void> {
     let errors = await validate(pUserDto);
     errors.length > 0
