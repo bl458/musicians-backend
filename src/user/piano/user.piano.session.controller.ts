@@ -24,7 +24,7 @@ export class UserPianoSessionController {
 
   @Delete('/puser/session/:token')
   async logout(@Param('token') token: string): Promise<void> {
-    if (!token || token !== token.trim() || token.length !== 256)
+    if (!token || token !== token.trim() || token.length !== 512)
       throw new BadRequestException('incorrect format for token');
 
     await this.pusService.deauthenticate(token);
