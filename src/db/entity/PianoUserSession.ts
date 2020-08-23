@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { PianoUser } from './PianoUser';
 
@@ -16,7 +17,7 @@ export class PianoUserSession {
   token: string;
 
   @OneToOne(() => PianoUser)
-  @Column()
+  @JoinColumn()
   pUser: PianoUser;
 
   @CreateDateColumn()
