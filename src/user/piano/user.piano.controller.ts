@@ -1,7 +1,7 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
 
 import { CreatePianoUserDto } from 'src/dto/dto.user.piano';
-import { validate } from 'class-validator';
+import { validate, ValidationError } from 'class-validator';
 import { UserPianoService } from './user.piano.service';
 
 @Controller()
@@ -10,9 +10,11 @@ export class UserPianoController {
 
   @Post('/puser')
   async newPUser(@Body() pUserDto: CreatePianoUserDto): Promise<void> {
-    let errors = await validate(pUserDto, { forbidUnknownValues: true });
-    errors.length > 0
-      ? console.log('validation failed. errors: ', errors)
-      : await this.pUserService.createNew(pUserDto);
+    let errors = await validate(pUserDto);
+    if (errors.length > 0) {
+      console.log('Validation failed. errors: ', errors);
+      throw new BadRequestException();
+    }
+    await this.pUserService.createNew(pUserDto);
   }
 }

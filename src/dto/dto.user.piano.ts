@@ -21,10 +21,6 @@ export class CreatePianoUserDto {
   @MaxLength(35)
   readonly firstName: string;
 
-  @IsOptional()
-  @MaxLength(35)
-  readonly middleName: string;
-
   @IsNotEmpty()
   @MaxLength(35)
   readonly lastName: string;
