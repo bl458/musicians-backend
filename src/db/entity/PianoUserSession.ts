@@ -12,7 +12,7 @@ export class PianoUserSession {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @Column()
+  @Column({ nullable: false, unique: true, length: 256 })
   token: string;
 
   @OneToOne(() => PianoUser)
