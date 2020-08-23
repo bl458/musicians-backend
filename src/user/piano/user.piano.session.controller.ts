@@ -14,7 +14,7 @@ import { validate } from 'class-validator';
 export class UserPianoSessionController {
   constructor(private pusService: UserPianoSessionService) {}
 
-  @Post('/puser/sessions')
+  @Post('/puser/session')
   async login(@Body() pusDto: CreatePianoUserSessionDto): Promise<string> {
     let errors = await validate(pusDto);
     if (errors.length > 0) console.log('Validation failed. errors: ', errors);
@@ -22,7 +22,7 @@ export class UserPianoSessionController {
     return await this.pusService.authenticate(pusDto);
   }
 
-  @Delete('/puser/sessions/:token')
+  @Delete('/puser/session/:token')
   async logout(@Param('token') token: string): Promise<void> {
     if (!token || token !== token.trim() || token.length !== 256)
       throw new BadRequestException('incorrect format for token');
