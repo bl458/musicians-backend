@@ -30,6 +30,8 @@ export class UserPianoSessionService {
         pUSession.pUser = pUser;
       }
 
+      await mgr.save(pUSession);
+
       return tken;
     });
   }
