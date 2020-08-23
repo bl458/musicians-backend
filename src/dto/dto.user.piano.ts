@@ -1,11 +1,4 @@
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsOptional,
-  MaxLength,
-  Length,
-  IsDate,
-} from 'class-validator';
+import { IsEmail, IsNotEmpty, MaxLength, Length } from 'class-validator';
 
 export class CreatePianoUserDto {
   @IsNotEmpty()
