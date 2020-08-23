@@ -20,6 +20,7 @@ export class UserPianoService {
 
       try {
         await mgr.save(pUser);
+        console.log(pUser);
       } catch (err) {
         if (err instanceof QueryFailedError)
           throw new ConflictException('Piano user email already exists');
