@@ -1,4 +1,10 @@
-import { IsEmail, IsNotEmpty, MaxLength, Length } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  MaxLength,
+  Length,
+  IsOptional,
+} from 'class-validator';
 
 export class CreatePianoUserDto {
   @IsNotEmpty()
@@ -13,6 +19,11 @@ export class CreatePianoUserDto {
   @IsNotEmpty()
   @MaxLength(35)
   readonly firstName: string;
+
+  @IsOptional()
+  @IsNotEmpty()
+  @MaxLength(35)
+  readonly middleName: string;
 
   @IsNotEmpty()
   @MaxLength(35)

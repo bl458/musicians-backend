@@ -16,6 +16,7 @@ export class UserPianoService {
       pUser.email = pUserDto.email;
       pUser.pw = pUserDto.pw;
       pUser.firstName = pUserDto.firstName;
+      pUser.middleName = pUserDto.middleName;
       pUser.lastName = pUserDto.lastName;
 
       try {

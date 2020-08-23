@@ -19,6 +19,9 @@ export class PianoUser {
   @Column()
   firstName: string;
 
+  @Column({ nullable: true })
+  middleName: string;
+
   @Column()
   lastName: string;
 
