@@ -4,6 +4,7 @@ import { DBConnService } from 'src/db/db.conn.service';
 import { CreatePianoUserDto } from 'src/dto/dto.user.piano';
 import { PianoUser } from 'src/db/entity/PianoUser';
 import { QueryFailedError } from 'typeorm';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class UserPianoService {
@@ -12,12 +13,7 @@ export class UserPianoService {
   //Create new piano user, stores to db
   async createNew(pUserDto: CreatePianoUserDto): Promise<void> {
     await this.conn.getConn().transaction(async mgr => {
-      const pUser = new PianoUser();
-      pUser.email = pUserDto.email;
-      pUser.pw = await this.authService.hashPw(pUserDto.pw);
-      pUser.firstName = pUserDto.firstName;
-      pUser.middleName = pUserDto.middleName;
-      pUser.lastName = pUserDto.lastName;
+      const pUser = plainToClass(PianoUser, pUserDto);
 
       try {
         await mgr.save(pUser);
