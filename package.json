@@ -1,8 +1,8 @@
 {
   "name": "musicians-backend",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Backend of an app to help musicians practice effectively",
+  "author": "Byungchan Lim",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
