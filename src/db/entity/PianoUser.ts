@@ -5,6 +5,8 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 
+import { Name } from './embedded/Name';
+
 @Entity()
 export class PianoUser {
   @PrimaryGeneratedColumn()
@@ -16,14 +18,8 @@ export class PianoUser {
   @Column()
   pw: string;
 
-  @Column()
-  firstName: string;
-
-  @Column({ nullable: true })
-  middleName: string;
-
-  @Column()
-  lastName: string;
+  @Column(type => Name)
+  name: Name;
 
   @CreateDateColumn()
   createdAt: Date;
