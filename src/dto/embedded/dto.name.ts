@@ -3,14 +3,14 @@ import { IsNotEmpty, MaxLength, IsOptional } from 'class-validator';
 export class CreateNameDto {
   @IsNotEmpty()
   @MaxLength(35)
-  readonly firstName: string;
+  readonly first: string;
 
   @IsOptional()
   @IsNotEmpty()
   @MaxLength(35)
-  readonly middleName: string;
+  readonly middle: string;
 
   @IsNotEmpty()
   @MaxLength(35)
-  readonly lastName: string;
+  readonly last: string;
 }

@@ -11,6 +11,7 @@ export class UserPianoController {
 
   @Post('/puser')
   async newPUser(@Body() pUserDto: CreatePianoUserDto): Promise<void> {
+    console.log(pUserDto);
     let errors = await validate(pUserDto);
     errors.length > 0
       ? console.log('Validation failed. errors: ', errors)

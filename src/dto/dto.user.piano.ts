@@ -13,6 +13,7 @@ export class CreatePianoUserDto {
   @Length(8, 25)
   pw: string;
 
+  @IsNotEmpty()
   @Type(() => CreateNameDto)
   readonly name: CreateNameDto;
 }

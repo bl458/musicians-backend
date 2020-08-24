@@ -2,11 +2,11 @@ import { Column } from 'typeorm';
 
 export class Name {
   @Column()
-  firstName: string;
+  first: string;
 
   @Column({ nullable: true })
-  middleName: string;
+  middle: string;
 
   @Column()
-  lastName: string;
+  last: string;
 }
