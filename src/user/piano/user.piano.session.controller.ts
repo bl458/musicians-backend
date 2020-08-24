@@ -6,9 +6,11 @@ import {
   Body,
   BadRequestException,
 } from '@nestjs/common';
-import { UserPianoSessionService } from './user.piano.session.service';
-import { CreatePianoUserSessionDto } from 'src/dto/dto.user.piano.session';
 import { validate } from 'class-validator';
+
+import { UserPianoSessionService } from './user.piano.session.service';
+
+import { CreatePianoUserSessionDto } from 'src/dto/dto.user.piano.session';
 
 @Controller()
 export class UserPianoSessionController {

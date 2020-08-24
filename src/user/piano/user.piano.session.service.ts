@@ -1,9 +1,11 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
+
+import { AuthService } from 'src/auth/auth.service';
 import { DBConnService } from 'src/db/db.conn.service';
-import { CreatePianoUserSessionDto } from 'src/dto/dto.user.piano.session';
 import { PianoUserSession } from 'src/db/entity/PianoUserSession';
 import { PianoUser } from 'src/db/entity/PianoUser';
-import { AuthService } from 'src/auth/auth.service';
+
+import { CreatePianoUserSessionDto } from 'src/dto/dto.user.piano.session';
 
 @Injectable()
 export class UserPianoSessionService {

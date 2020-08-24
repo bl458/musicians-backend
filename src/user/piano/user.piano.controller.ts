@@ -1,8 +1,9 @@
 import { Controller, Post, Body } from '@nestjs/common';
 
-import { CreatePianoUserDto } from 'src/dto/dto.user.piano';
 import { validate } from 'class-validator';
 import { UserPianoService } from './user.piano.service';
+
+import { CreatePianoUserDto } from 'src/dto/dto.user.piano';
 
 @Controller()
 export class UserPianoController {

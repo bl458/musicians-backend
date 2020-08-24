@@ -1,10 +1,12 @@
 import { Injectable, ConflictException } from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
-import { DBConnService } from 'src/db/db.conn.service';
-import { CreatePianoUserDto } from 'src/dto/dto.user.piano';
-import { PianoUser } from 'src/db/entity/PianoUser';
 import { QueryFailedError } from 'typeorm';
 import { plainToClass } from 'class-transformer';
+
+import { AuthService } from 'src/auth/auth.service';
+import { DBConnService } from 'src/db/db.conn.service';
+import { PianoUser } from 'src/db/entity/PianoUser';
+
+import { CreatePianoUserDto } from 'src/dto/dto.user.piano';
 
 @Injectable()
 export class UserPianoService {

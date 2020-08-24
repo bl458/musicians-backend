@@ -1,6 +1,7 @@
 import { Module, Global } from '@nestjs/common';
-import { DBConnService } from './db.conn.service';
 import { createConnection } from 'typeorm';
+
+import { DBConnService } from './db.conn.service';
 
 @Global()
 @Module({
