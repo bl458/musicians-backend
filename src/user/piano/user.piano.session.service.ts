@@ -17,14 +17,14 @@ export class UserPianoSessionService {
     let pw = pusDto.pw;
 
     return await this.conn.getConn().transaction(async mgr => {
-      let pUser = await mgr.findOne(PianoUser, { email: email });
+      let pUser = await mgr.findOne(PianoUser, { email });
       if (!pUser) throw new BadRequestException('bad email');
 
       let isPwValid = await this.auth.comparePw(pw, pUser.pw);
       if (!isPwValid) throw new BadRequestException('bad pw');
 
       let tken = await this.auth.generate();
-      let pUSession = await mgr.findOne(PianoUserSession, { pUser: pUser });
+      let pUSession = await mgr.findOne(PianoUserSession, { pUser });
 
       if (pUSession) pUSession.token = tken;
       else {
@@ -41,7 +41,7 @@ export class UserPianoSessionService {
 
   async deauthenticate(token: string): Promise<void> {
     await this.conn.getConn().transaction(async mgr => {
-      let pUserSession = await mgr.findOne(PianoUserSession, { token: token });
+      let pUserSession = await mgr.findOne(PianoUserSession, { token });
       if (!pUserSession) throw new BadRequestException('invalid token');
       await mgr.remove(pUserSession);
     });
