@@ -1,7 +1,10 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 
 import { DBConnService } from 'src/db/db.conn.service';
+
 import { PianoUserSession } from 'src/db/entity/PianoUserSession';
+
+import { validateToken } from 'src/helper/validateHelper';
 
 // Token expiry : 30 min.
 const TOKEN_EXPIRY = 1000 * 60 * 30;
@@ -16,12 +19,17 @@ export class UserPianoGuard implements CanActivate {
       .getRequest()
       .header('api-token');
 
-    let isValid = await this.conn.getConn().transaction(async mgr => {
-      let puSessionTemp = await mgr.findOne(PianoUserSession, { token });
-      if (puSessionTemp) return true;
-      return false;
-    });
+    if (!validateToken(token)) return false;
 
-    return isValid;
+    return await this.conn.getConn().transaction(async mgr => {
+      let puSession = await mgr.findOne(PianoUserSession, { token });
+      if (!puSession) return false;
+
+      context.switchToHttp().getRequest().session = puSession; //Create custom decorator @Session
+
+      let tokenAge = new Date().getTime() - puSession.createdAt.getTime();
+
+      return tokenAge > TOKEN_EXPIRY;
+    });
   }
 }

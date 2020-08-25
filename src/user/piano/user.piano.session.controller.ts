@@ -12,6 +12,8 @@ import { UserPianoSessionService } from './user.piano.session.service';
 
 import { CreatePianoUserSessionDto } from 'src/dto/dto.user.piano.session';
 
+import { validateToken } from 'src/helper/validateHelper';
+
 @Controller()
 export class UserPianoSessionController {
   constructor(private pusService: UserPianoSessionService) {}
@@ -26,7 +28,7 @@ export class UserPianoSessionController {
 
   @Delete('/puser/session/:token')
   async logout(@Param('token') token: string): Promise<void> {
-    if (!token || token !== token.trim() || token.length !== 512)
+    if (!validateToken(token))
       throw new BadRequestException('incorrect format for token');
 
     await this.pusService.deauthenticate(token);
