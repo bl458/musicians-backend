@@ -13,13 +13,13 @@ export class Piece {
   level: number;
 
   @ManyToMany(
-    type => PianoUser,
+    () => PianoUser,
     pastUsers => pastUsers.pastPieces,
   )
   pastUsers: PianoUser[];
 
   @ManyToMany(
-    type => PianoUser,
+    () => PianoUser,
     futureUsers => futureUsers.futurePieces,
   )
   futureUsers: PianoUser[];

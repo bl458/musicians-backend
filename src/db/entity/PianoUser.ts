@@ -5,9 +5,12 @@ import {
   CreateDateColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
 
 import { Name } from './embedded/Name';
+
 import { Piece } from './Piece';
 import { Pracc } from './Pracc';
 
@@ -25,23 +28,27 @@ export class PianoUser {
   @Column(type => Name)
   name: Name;
 
+  @CreateDateColumn()
+  createdAt: Date;
+
   @ManyToMany(
-    type => Piece,
+    () => Piece,
     pastPieces => pastPieces.pastUsers,
   )
   @JoinTable()
   pastPieces: Piece[];
 
-  @Column(type => Pracc)
-  presentPracc: Pracc[];
+  @OneToMany(
+    () => Pracc,
+    presentPracc => presentPracc.praccUser,
+  )
+  @JoinColumn()
+  presentPracc: Pracc;
 
   @ManyToMany(
-    type => Piece,
+    () => Piece,
     futurePieces => futurePieces.futureUsers,
   )
   @JoinTable()
   futurePieces: Piece[];
-
-  @CreateDateColumn()
-  createdAt: Date;
 }
