@@ -1,10 +1,12 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 
-import { Pracc } from 'src/db/entity/Pracc';
-import { PianoUserSession } from 'src/db/entity/PianoUserSession';
 import { DBConnService } from 'src/db/db.conn.service';
 
-import { CreatePianoPatchSpeedDto } from 'src/dto/dto.user.piano.patch.speed';
+import { Pracc } from 'src/db/entity/Pracc';
+import { PianoUserSession } from 'src/db/entity/PianoUserSession';
+
+import { CreatePianoPraccDto } from 'src/dto/dto.user.piano.pracc';
+import { Piece } from 'src/db/entity/Piece';
 
 @Injectable()
 export class UserPianoPracticeService {
@@ -15,24 +17,29 @@ export class UserPianoPracticeService {
     return puSession.pUser.presentPraccs;
   }
 
-  async updateSpeed(
+  async updatePracc(
     puSession: PianoUserSession,
-    patchSpeedDto: CreatePianoPatchSpeedDto,
+    praccDto: CreatePianoPraccDto,
   ): Promise<void> {
     await this.conn.getConn().transaction(async mgr => {
       let praccs = puSession.pUser.presentPraccs;
-      let pracc: Pracc;
 
-      for (const p of praccs) {
-        if (p.id === patchSpeedDto.id) {
-          pracc = p;
+      for (let i = 0; i < praccs.length; i++) {
+        if (praccs[i].praccPiece.name === praccDto.pieceName) {
+          praccs[i].mspeed = praccDto.mspeed;
+          return await mgr.save(praccs);
         }
       }
 
-      if (!pracc) throw new BadRequestException('bad pracc id');
+      let pracc = new Pracc();
+      let newPiece = await mgr.findOne(Piece, { name: praccDto.pieceName });
+      if (!newPiece) throw new BadRequestException('Piece name isnt in db');
 
-      pracc.mspeed = patchSpeedDto.mspeed;
-      await mgr.save(pracc);
+      pracc.praccPiece = newPiece;
+      pracc.praccPUser = puSession.pUser;
+      pracc.mspeed = praccDto.mspeed;
+
+      await mgr.save([...praccs, pracc]);
     });
   }
 }
