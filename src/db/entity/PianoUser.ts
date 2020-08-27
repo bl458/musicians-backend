@@ -33,21 +33,21 @@ export class PianoUser {
 
   @ManyToMany(
     () => Piece,
-    pastPieces => pastPieces.pastUsers,
+    pastPieces => pastPieces.pastPUsers,
   )
   @JoinTable()
   pastPieces: Piece[];
 
   @OneToMany(
     () => Pracc,
-    presentPracc => presentPracc.praccUser,
+    presentPracc => presentPracc.praccPUser,
   )
   @JoinColumn()
   presentPracc: Pracc;
 
   @ManyToMany(
     () => Piece,
-    futurePieces => futurePieces.futureUsers,
+    futurePieces => futurePieces.futurePUsers,
   )
   @JoinTable()
   futurePieces: Piece[];

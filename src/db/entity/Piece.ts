@@ -14,13 +14,13 @@ export class Piece {
 
   @ManyToMany(
     () => PianoUser,
-    pastUsers => pastUsers.pastPieces,
+    pastPUsers => pastPUsers.pastPieces,
   )
-  pastUsers: PianoUser[];
+  pastPUsers: PianoUser[];
 
   @ManyToMany(
     () => PianoUser,
-    futureUsers => futureUsers.futurePieces,
+    futurePUsers => futurePUsers.futurePieces,
   )
-  futureUsers: PianoUser[];
+  futurePUsers: PianoUser[];
 }

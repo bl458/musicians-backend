@@ -16,7 +16,7 @@ export class Pracc {
 
   @ManyToOne(
     () => PianoUser,
-    praccUser => praccUser.presentPracc,
+    praccPUser => praccPUser.presentPracc,
   )
-  praccUser: PianoUser;
+  praccPUser: PianoUser;
 }
