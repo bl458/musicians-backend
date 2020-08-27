@@ -1,10 +1,4 @@
-import {
-  Entity,
-  Column,
-  ManyToMany,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Entity, Column, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { PianoUser } from './PianoUser';
 
 @Entity()

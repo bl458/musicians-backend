@@ -33,7 +33,7 @@ export class UserPianoPracticeController {
     @Session() puSession: PianoUserSession,
     @Body('metronome-speed') mspeed: number,
   ): Promise<void> {
-    if (validateMSpeed(mspeed))
+    if (!validateMSpeed(mspeed))
       throw new UnauthorizedException('invalid metronome speed');
 
     await this.pupService.updateSpeed(puSession, mspeed);
