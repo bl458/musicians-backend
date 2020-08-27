@@ -40,10 +40,10 @@ export class PianoUser {
 
   @OneToMany(
     () => Pracc,
-    presentPracc => presentPracc.praccPUser,
+    presentPraccs => presentPraccs.praccPUser,
   )
   @JoinColumn()
-  presentPracc: Pracc;
+  presentPraccs: Pracc[];
 
   @ManyToMany(
     () => Piece,

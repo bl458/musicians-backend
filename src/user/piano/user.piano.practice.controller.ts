@@ -16,6 +16,8 @@ import { Pracc } from 'src/db/entity/Pracc';
 import { PianoUserSession } from 'src/db/entity/PianoUserSession';
 
 import { validateMSpeed } from 'src/helper/validateHelper';
+import { CreatePianoPatchSpeedDto } from 'src/dto/dto.user.piano.patch.speed';
+import { validate } from 'class-validator';
 
 @Controller()
 @UseGuards(UserPianoGuard)
@@ -26,18 +28,18 @@ export class UserPianoPracticeController {
   // Is nestjs/platform-express dependency or devdependency?
   // Why make migrations in both src and build?
   @Get('/pup')
-  getPracc(@Session() puSession: PianoUserSession): Pracc {
-    return this.pupService.fetchPraccObj(puSession);
+  getPraccs(@Session() puSession: PianoUserSession): Pracc[] {
+    return this.pupService.fetchPraccs(puSession);
   }
 
   @Patch('/pup/mspeed')
   async patchSpeed(
     @Session() puSession: PianoUserSession,
-    @Body('metronome-speed') mspeed: number,
+    @Body() patchSpeedDto: CreatePianoPatchSpeedDto,
   ): Promise<void> {
-    if (!validateMSpeed(mspeed))
-      throw new UnauthorizedException('invalid metronome speed');
-
-    await this.pupService.updateSpeed(puSession, mspeed);
+    let errors = await validate(patchSpeedDto);
+    errors.length > 0
+      ? console.log('Validation failed. errors: ', errors)
+      : await this.pupService.updateSpeed(puSession, patchSpeedDto);
   }
 }
