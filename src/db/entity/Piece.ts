@@ -1,8 +1,17 @@
-import { Entity, Column, ManyToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  ManyToMany,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { PianoUser } from './PianoUser';
 
 @Entity()
 export class Piece {
+  @PrimaryGeneratedColumn()
+  id: number;
+
   @Column({ unique: true, nullable: false })
   name: string;
 

@@ -17,7 +17,7 @@ import { Pracc } from './Pracc';
 @Entity()
 export class PianoUser {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column({ unique: true })
   email: string;

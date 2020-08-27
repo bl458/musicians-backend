@@ -12,7 +12,7 @@ import { PianoUser } from './PianoUser';
 @Entity()
 export class PianoUserSession {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column({ nullable: false, unique: true, length: 512 })
   token: string;
