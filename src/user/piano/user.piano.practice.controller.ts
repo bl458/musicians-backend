@@ -15,6 +15,8 @@ import { UserPianoGuard } from './user.piano.guard';
 import { Pracc } from 'src/db/entity/Pracc';
 import { PianoUserSession } from 'src/db/entity/PianoUserSession';
 
+import { validateMSpeed } from 'src/helper/validateHelper';
+
 @Controller()
 @UseGuards(UserPianoGuard)
 export class UserPianoPracticeController {
@@ -31,7 +33,7 @@ export class UserPianoPracticeController {
     @Session() puSession: PianoUserSession,
     @Body('metronome-speed') mspeed: number,
   ): Promise<void> {
-    if (mspeed < 35 || mspeed > 220)
+    if (validateMSpeed(mspeed))
       throw new UnauthorizedException('invalid metronome speed');
 
     this.pupService.updateSpeed(puSession, mspeed);
