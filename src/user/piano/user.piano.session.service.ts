@@ -23,19 +23,19 @@ export class UserPianoSessionService {
       let isPwValid = await this.auth.comparePw(pw, pUser.pw);
       if (!isPwValid) throw new BadRequestException('bad pw');
 
-      let tken = await this.auth.generate();
+      let token = await this.auth.generate();
       let pUSession = await mgr.findOne(PianoUserSession, { pUser });
 
-      if (pUSession) pUSession.token = tken;
-      else {
+      if (!pUSession) {
         pUSession = new PianoUserSession();
-        pUSession.token = tken;
         pUSession.pUser = pUser;
       }
 
+      pUSession.token = token;
+
       await mgr.save(pUSession);
 
-      return tken;
+      return token;
     });
   }
 

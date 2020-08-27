@@ -9,6 +9,7 @@ export class UserPianoPracticeService {
   constructor(private conn: DBConnService) {}
 
   fetchPraccObj(puSession: PianoUserSession): Pracc {
+    console.log(puSession.pUser);
     return puSession.pUser.presentPracc;
   }
 

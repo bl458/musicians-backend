@@ -25,7 +25,7 @@ export class UserPianoGuard implements CanActivate {
       let puSession = await mgr.findOne(PianoUserSession, { token });
       if (!puSession) return false;
 
-      console.log(puSession.pUser);
+      console.log(puSession.token);
 
       context.switchToHttp().getRequest().session = puSession; //Create custom decorator @Session
 

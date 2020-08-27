@@ -22,7 +22,9 @@ import { validateMSpeed } from 'src/helper/validateHelper';
 export class UserPianoPracticeController {
   constructor(private pupService: UserPianoPracticeService) {}
 
-  // Is it ok for some backend requests to not be async? Is nestjs/platform-express dependency or devdependency?
+  // Is it ok for some backend requests to not be async?
+  // Is nestjs/platform-express dependency or devdependency?
+  // Why make migrations in both src and build?
   @Get('/pup')
   getPracc(@Session() puSession: PianoUserSession): Pracc {
     return this.pupService.fetchPraccObj(puSession);
