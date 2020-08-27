@@ -36,6 +36,6 @@ export class UserPianoPracticeController {
     if (validateMSpeed(mspeed))
       throw new UnauthorizedException('invalid metronome speed');
 
-    this.pupService.updateSpeed(puSession, mspeed);
+    await this.pupService.updateSpeed(puSession, mspeed);
   }
 }
