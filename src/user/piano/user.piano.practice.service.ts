@@ -1,14 +1,25 @@
 import { Injectable } from '@nestjs/common';
 
 import { Pracc } from 'src/db/entity/Pracc';
+import { PianoUserSession } from 'src/db/entity/PianoUserSession';
+import { DBConnService } from 'src/db/db.conn.service';
 
 @Injectable()
 export class UserPianoPracticeService {
-  async fetchPraccObj(): Promise<Pracc> {
-    return;
+  constructor(private conn: DBConnService) {}
+
+  fetchPraccObj(puSession: PianoUserSession): Pracc {
+    return puSession.pUser.presentPracc;
   }
 
-  async updateSpeed(mspeed: number): Promise<void> {
-    return;
+  async updateSpeed(
+    puSession: PianoUserSession,
+    mspeed: number,
+  ): Promise<void> {
+    await this.conn.getConn().transaction(async mgr => {
+      let pracc = puSession.pUser.presentPracc;
+      pracc.mspeed = mspeed;
+      await mgr.save(pracc);
+    });
   }
 }
