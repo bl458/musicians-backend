@@ -17,7 +17,10 @@ export class PianoUserSession {
   @Column({ nullable: false, unique: true, length: 512 })
   token: string;
 
-  @OneToOne(() => PianoUser)
+  @OneToOne(
+    () => PianoUser,
+    pUser => pUser.id,
+  )
   @JoinColumn()
   pUser: PianoUser;
 
