@@ -7,6 +7,7 @@ import {
   JoinTable,
   OneToMany,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 
 import { Name } from './embedded/Name';
@@ -30,6 +31,19 @@ export class PianoUser {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @ManyToMany(
+    () => PianoUser,
+    followed => followed.following,
+  )
+  followed: PianoUser[];
+
+  @ManyToMany(
+    () => PianoUser,
+    following => following.followed,
+  )
+  @JoinTable()
+  following: PianoUser[];
 
   @ManyToMany(
     () => Piece,

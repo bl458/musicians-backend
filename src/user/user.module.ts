@@ -9,6 +9,8 @@ import { UserPianoPracticeController } from './piano/user.piano.practice.control
 import { UserPianoService } from './piano/user.piano.service';
 import { UserPianoSessionService } from './piano/user.piano.session.service';
 import { UserPianoPracticeService } from './piano/user.piano.practice.service';
+import { UserPianoFollowService } from './piano/user.piano.follow.service';
+import { UserPianoFollowController } from './piano/user.piano.follow.controller';
 
 @Module({
   imports: [AuthModule],
@@ -16,11 +18,13 @@ import { UserPianoPracticeService } from './piano/user.piano.practice.service';
     UserPianoService,
     UserPianoSessionService,
     UserPianoPracticeService,
+    UserPianoFollowService,
   ],
   controllers: [
     UserPianoController,
     UserPianoSessionController,
     UserPianoPracticeController,
+    UserPianoFollowController,
   ],
 })
 export class UserModule {}

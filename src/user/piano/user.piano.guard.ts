@@ -22,14 +22,19 @@ export class UserPianoGuard implements CanActivate {
     if (!validateToken(token)) return false;
 
     return await this.conn.getConn().transaction(async mgr => {
-      let puSession = await mgr.findOne(PianoUserSession, { token });
+      let puSession = await mgr.findOne(PianoUserSession, {
+        where: { token },
+        relations: ['pUser', 'pUser.following'],
+      });
       if (!puSession) return false;
 
-      console.log(puSession.token);
+      console.log('Guard: ', puSession);
 
       context.switchToHttp().getRequest().session = puSession; //Create custom decorator @Session
 
       let tokenAge = new Date().getTime() - puSession.createdAt.getTime();
+
+      console.log('Guard: ', new Date(), puSession.createdAt, tokenAge);
 
       return tokenAge < TOKEN_EXPIRY;
     });

@@ -24,14 +24,15 @@ export class UserPianoSessionService {
       if (!isPwValid) throw new BadRequestException('bad pw');
 
       let token = await this.auth.generate();
-      let pUSession = await mgr.findOne(PianoUserSession, { pUser });
 
-      if (!pUSession) {
-        pUSession = new PianoUserSession();
-        pUSession.pUser = pUser;
-      }
+      let pastSession = await mgr.findOne(PianoUserSession, { pUser });
+      if (pastSession) await mgr.remove(pastSession);
 
+      let pUSession = new PianoUserSession();
       pUSession.token = token;
+      pUSession.pUser = pUser;
+
+      console.log('Login: ', pUSession);
 
       await mgr.save(pUSession);
 
