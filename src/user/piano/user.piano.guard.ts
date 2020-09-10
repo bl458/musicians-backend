@@ -28,13 +28,9 @@ export class UserPianoGuard implements CanActivate {
       });
       if (!puSession) return false;
 
-      console.log('Guard: ', puSession);
-
       context.switchToHttp().getRequest().session = puSession; //Create custom decorator @Session
 
       let tokenAge = new Date().getTime() - puSession.createdAt.getTime();
-
-      console.log('Guard: ', new Date(), puSession.createdAt, tokenAge);
 
       return tokenAge < TOKEN_EXPIRY;
     });
